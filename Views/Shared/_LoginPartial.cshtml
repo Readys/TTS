@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+@using TTS20.Tools
+
+    <div class="m-stack__item m-stack__item--right m-header-head" id="m_header_nav">
+        <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
+            <div class="m-stack__item m-topbar__nav-wrapper">
+                <ul class="m-topbar__nav m-nav m-nav--inline">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="m-nav__item m-topbar__user-profile  m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
+                            <div class="m-nav__link m-dropdown__toggle">
+                                <span class="m-topbar__userpic">
+                                    <img style="margin-right:5px !important;" src="http://localhost:63920/Theme/assets/app/media/img/users/100_8.jpg" class="m--img-rounded m--marginless m--img-centered" alt="">
+                                </span>
+                                <span class="m-topbar__userpic">
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ActionLink("Hello " + Helper.GetNameByEmail(User.Identity.GetUserName()) + "!", "Index", "Manage", routeValues: null, htmlAttributes: new {
+                                       title = "Manage", @class = "m-nav__link", @style = "color:white;vertical-align:middle;"})
+                                        <a class="m-nav__link" style="color:white;vertical-align:middle;" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                    }
+                                </span>
+
+                                <span class="m-nav__link-icon m-topbar__usericon  m--hide">
+                                    <span class="m-nav__link-icon-wrapper"><i class="flaticon-user-ok"></i></span>
+                                </span>
+                                <span class="m-topbar__username m--hide">Nick</span>
+                            </div>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="m-nav__item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "m-nav__link", @style = "color:white;padding-top:30px;" })</li>
+                        <li class="m-nav__item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "m-nav__link", @style = "color:white;padding-top:30px;" })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
